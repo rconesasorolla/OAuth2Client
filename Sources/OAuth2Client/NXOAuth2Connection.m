@@ -69,12 +69,14 @@ sendingProgressHandler:(NXOAuth2ConnectionSendingProgressHandler)aSendingProgres
           oauthClient:(NXOAuth2Client *)aClient
              delegate:(NSObject<NXOAuth2ConnectionDelegate> *)aDelegate;
 {
+    
+    
     self = [super init];
     if (self) {
         sendConnectionDidEndNotification = NO;
         delegate = aDelegate;    // assign only
         client = aClient;
-
+        
         request = [aRequest copy];
         requestParameters = [someRequestParameters copy];
         connection = [self createConnection];
@@ -87,7 +89,7 @@ sendingProgressHandler:(NXOAuth2ConnectionSendingProgressHandler)aSendingProgres
 {
     if (sendConnectionDidEndNotification) [[NSNotificationCenter defaultCenter] postNotificationName:NXOAuth2ConnectionDidEndNotification object:self];
     sendConnectionDidEndNotification = NO;
-
+    
     [connection cancel];
 }
 
@@ -397,10 +399,10 @@ sendingProgressHandler:(NXOAuth2ConnectionSendingProgressHandler)aSendingProgres
             }
         }
     }
-    if (/*self.statusCode == 401 // TODO: check for status code once the bug returning 500 is fixed
-         &&*/ client.accessToken.refreshToken != nil
+    if (self.statusCode == 401
+        && client.accessToken.refreshToken != nil
         && authenticateHeader
-        && [authenticateHeader rangeOfString:@"expired_token"].location != NSNotFound) {
+        && [authenticateHeader rangeOfString:@"invalid_grant"].location != NSNotFound) {
         [self cancel];
         [client refreshAccessTokenAndRetryConnection:self];
     } else {

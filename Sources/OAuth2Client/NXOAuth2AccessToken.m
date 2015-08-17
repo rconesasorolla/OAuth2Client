@@ -65,7 +65,7 @@
     if (scopeString && ![scopeString isEqual:[NSNull null]]) {
         scope = [NSSet setWithArray:[scopeString componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     }
-
+    
     NSDate *expiryDate = nil;
     if (expiresIn != nil && [expiresIn isKindOfClass:[NSNull class]] == NO) {
         expiryDate = [NSDate dateWithTimeIntervalSinceNow:[expiresIn integerValue]];

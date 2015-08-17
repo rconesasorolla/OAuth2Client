@@ -35,7 +35,7 @@ extern NSString * const NXOAuth2ClientConnectionContextTokenRefresh;
 @protected
     BOOL authenticating;
     BOOL persistent;
-
+    
     NSString    *clientId;
     NSString    *clientSecret;
     

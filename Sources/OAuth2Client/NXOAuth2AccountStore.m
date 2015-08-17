@@ -455,9 +455,9 @@ NSString * const kNXOAuth2AccountStoreAccountType = @"kNXOAuth2AccountStoreAccou
     NSURL *preparedURL = [client authorizationURLWithRedirectURL:redirectURL];
     
 #if TARGET_OS_IPHONE
-        [[UIApplication sharedApplication] openURL:preparedURL];
+    [[UIApplication sharedApplication] openURL:preparedURL];
 #else
-        [[NSWorkspace sharedWorkspace] openURL:preparedURL];
+    [[NSWorkspace sharedWorkspace] openURL:preparedURL];
 #endif
 }
 
@@ -602,7 +602,7 @@ NSString * const kNXOAuth2AccountStoreAccountType = @"kNXOAuth2AccountStoreAccou
 + (void)storeAccountsInDefaultKeychain:(NSDictionary *)accounts;
 {
     [self removeFromDefaultKeychain];
- 
+    
     NSString *serviceName = [self keychainServiceName];
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:accounts];
@@ -625,7 +625,7 @@ NSString * const kNXOAuth2AccountStoreAccountType = @"kNXOAuth2AccountStoreAccou
                            nil];
     OSStatus __attribute__((unused)) err = SecItemDelete((__bridge CFDictionaryRef)query);
     NSAssert1((err == noErr || err == errSecItemNotFound), @"Error while deleting token from keychain: %ld", err);
-
+    
 }
 
 #else
@@ -681,7 +681,7 @@ NSString * const kNXOAuth2AccountStoreAccountType = @"kNXOAuth2AccountStoreAccou
 + (void)storeAccountsInDefaultKeychain:(NSDictionary *)accounts;
 {
     [self removeFromDefaultKeychain];
- 
+    
     NSString *serviceName = [self keychainServiceName];
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:accounts];

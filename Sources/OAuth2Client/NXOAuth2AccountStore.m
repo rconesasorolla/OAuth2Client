@@ -199,6 +199,13 @@ NSString * const kNXOAuth2AccountStoreAccountType = @"kNXOAuth2AccountStoreAccou
     [client authenticateWithUsername:username password:password];
 }
 
+- (void)requestAccessToAccountWithType:(NSString *)accountType grantType:(NSString *)grantType parameters:(NSDictionary *)parameters;
+{
+    NXOAuth2Client *client = [self pendingOAuthClientForAccountType:accountType];
+    [client authenticateWithCustomGrantType:grantType parameters:parameters];
+}
+
+
 - (void)requestAccessToAccountWithType:(NSString *)accountType assertionType:(NSURL *)assertionType assertion:(NSString *)assertion;
 {
     NXOAuth2Client *client = [self pendingOAuthClientForAccountType:accountType];

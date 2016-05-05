@@ -125,6 +125,7 @@ extern NSString * const NXOAuth2ClientConnectionContextTokenRefresh;
  */
 - (void)authenticateWithClientCredentials;
 - (void)authenticateWithUsername:(NSString *)username password:(NSString *)password;
+- (void)authenticateWithCustomGrantType:(NSString *)grantType parameters:(NSDictionary *)params;
 
 /*!
  * Authenticate with assertion (Assertion Flow)

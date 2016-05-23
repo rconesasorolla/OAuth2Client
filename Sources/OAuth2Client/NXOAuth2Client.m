@@ -573,7 +573,14 @@ NSString * const NXOAuth2ClientConnectionContextTokenRefresh = @"tokenRefresh";
             }
             
             if ([delegate respondsToSelector:@selector(oauthClient:didFailToGetAccessTokenWithError:)]) {
-                [delegate oauthClient:self didFailToGetAccessTokenWithError:error];
+                NSError *jsonError;
+                NSData *objectData = [body dataUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:objectData
+                                                                     options:NSJSONReadingMutableContainers
+                                                                       error:&jsonError];
+                NSError *errorUserInfo = [NSError errorWithDomain:error.domain code:error.code userInfo:json];
+                [delegate oauthClient:self didFailToGetAccessTokenWithError:errorUserInfo];
+
             }
         }
     }
